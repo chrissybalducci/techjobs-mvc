@@ -28,7 +28,7 @@
 
         <p>
             <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
+            <input type="text" name="searchTerm" id="searchTerm" th:value = "${searchTerm}" />
         </p>
 
         <input type="submit" value="Search" />
@@ -37,6 +37,14 @@
     <hr />
 
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
+
+    <table class = "job-listing" th:each = "job: ${jobs}">
+        <tr th:each = "entry: ${job}">
+            <td th:text = "${#strings.capitalizeWords(entry.key)}"></td>
+            <td th:if = "${entry.key} != 'name'"><a th:href="@{/list/jobs(column=${entry.key},value = ${entry.value})}" th:text = "${entry.value}"></a></td>
+            <td th:if = "${entry.key} == 'name'" th:text = "${entry.value}"></td>
+        </tr>
+    </table>
 
 </div>
 
